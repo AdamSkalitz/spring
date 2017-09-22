@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>RESTful Web Service with Ajax</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	</head>
+	<body>
+	<form>
+		<p>
+		<label>Books:
+		<input type="text" id="books" value="/book/1" /></label>
+		<input type="button" id="booksBtn" value="Get Books" />	
+				
+		</form>
+		<div id="infoArea"></div>
+		
+		<script type="text/javascript">
+	
+			function getBooks(){
+				var root = "http://localhost:8080";
+				var urlPath = $("#books").val();
+				
+				$.ajax({
+					url: root + urlPath,
+					method: 'GET',
+					crossDomain:true
+				}).then(function(data) {
+					var newHTML = [];
+					$.each(data, function(index, value){
+					newHTML.push('<h3>' + "Book ID: " + index + '</h3>');
+					newHTML.push('<br>' + "Title: " + value["title"] + '</br>');
+					newHTML.push('<br>' + "Author: " + value["author"] + '</br>');
+					newHTML.push('<br>' + "Description: " + value["description"] + '</br>');
+					newHTML.push('<br>' + "Price: " + value["price"] + '</br>');
+					});
+					$("#infoArea").html(newHTML.join(""));
+				});
+					
+			}
+			document.getElementById("booksBtn").addEventListener("click",getBooks);
+		</script>
+	</body>
+</html>

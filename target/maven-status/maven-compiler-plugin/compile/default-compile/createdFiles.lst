@@ -1,0 +1,5 @@
+com\victoria\demos\dataservice\IAuthorService.class
+com\victoria\demos\dataservice\AuthorRowMapper.class
+com\victoria\demos\dataservice\AuthorService.class
+com\qa\author\AuthorController.class
+com\victoria\demos\model\Author.class

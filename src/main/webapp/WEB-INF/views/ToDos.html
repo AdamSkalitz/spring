@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>RESTful Web Service with Ajax</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	</head>
+	<body>
+	<form>
+		<p>
+		<label>ToDos:
+		<input type="text" id="todos" value="/todo/1" /></label>
+		<input type="button" id="todoBtn" value="Get ToDos" />	
+			
+		</form>
+		<div id="infoArea"></div>
+		
+		<script type="text/javascript">
+	
+			function getTodos(){
+				var root = "http://localhost:8080";
+				var urlPath = $("#todos").val();
+				
+				$.ajax({
+					url: root + urlPath,
+					method: 'GET',
+					crossDomain:true
+				}).then(function(data) {
+					var newHTML = [];
+					$.each(data, function(index, value){
+					newHTML.push('<h3>' + "ToDo ID: " + index + '</h3>');
+					newHTML.push('<br>' + "User: " + value["user"] + '</br>');
+					newHTML.push('<br>' + "TargetDate: " + value["targetDate"] + '</br>');
+					newHTML.push('<br>' + "IsDone: " + value["done"] + '</br>');
+					newHTML.push('<br>' + "Description: " + value["desc"] + '</br>');
+					});
+		$("#infoArea").html(newHTML.join(""));
+				});
+					
+			}
+			document.getElementById("todoBtn").addEventListener("click",getTodos);
+		</script>
+	</body>
+</html>
